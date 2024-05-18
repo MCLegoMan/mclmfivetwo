@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "mclmfivetwo",
+  "version": "${version}",
+  "name": "FiveTwo",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "MCLegoMan"
+  ],
+  "contributors": [
+  ],
+  "contact": {
+    "sources": "https://github.com/MCLegoMan/mclmfivetwo",
+    "issues": "https://github.com/MCLegoMan/mclmfivetwo/issues"
+  },
+  "license": [
+    "LGPL-3.0-or-later"
+  ],
+  "icon": "assets/mclmfivetwo/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.mclegoman.mclmfivetwo.FiveTwo"
+    ]
+  },
+  "mixins": [
+    "mclmfivetwo.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.11",
+    "minecraft": "1.5.2",
+    "java": ">=21"
+  }
+}

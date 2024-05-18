@@ -1,0 +1,16 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.mclegoman.mclmfivetwo.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+	],
+	"client": [
+		"client.InGameHUDMixin",
+		"client.ResourceDownloadThreadMixin",
+		"client.TitleScreenMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
