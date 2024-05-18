@@ -1,0 +1,2 @@
+- Update skins to be retrieved from the new servers.
+- Update resources/assets/etc to come from new servers (if possible).
