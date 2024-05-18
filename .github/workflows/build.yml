@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        java: [ "17" ] # Latest version
+        java: [ "21" ] # Latest version
         
     runs-on: ubuntu-latest
     steps:
@@ -19,7 +19,7 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v4.0.0
         with:
-          distribution: "temurin"
+          distribution: "microsoft"
           java-version: ${{ matrix.java }}
       - name: Grant execute permission
         run: chmod +x ./gradlew
