@@ -17,7 +17,6 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.util.Language;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,75 +30,31 @@ import java.util.Date;
 @Mixin(value = TitleScreen.class, priority = 100)
 public abstract class TitleScreenMixin extends Screen {
 	@Shadow private int field_2278;
-
 	@Shadow private String splashText;
-
 	@Shadow protected abstract void method_1726(int i, int j, Language language);
-
 	@Shadow protected abstract void method_1724(int i, int j, Language language);
-
 	@Shadow protected abstract void method_5255(Language language, int i, int j);
-
-	@Shadow private String oldGl1;
-
-	@Shadow @Final public static String MORE_INFO_MESSAGE;
-
-	@Shadow private int oldGl2Width;
-
-	@Shadow private int oldGl1Width;
-
-	@Shadow private int oldGlLeft;
-
-	@Shadow private int oldGlTop;
-
-	@Shadow private int oldGlRight;
-
-	@Shadow private int oldGlBottom;
-
-	@Shadow @Final private Object mutex;
-
 	@Shadow protected abstract void renderBackground(int mouseX, int mouseY, float tickDelta);
-
 	@Shadow private float minecraftRandomNumber;
-
 	@Inject(method = "init", at = @At("HEAD"), cancellable = true)
 	private void mclm153$init(CallbackInfo ci) {
 		this.field_2278 = this.field_1229.textureManager.method_1417(new BufferedImage(256, 256, 2));
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
-		if (calendar.get(Calendar.MONTH) + 1 == 5 && calendar.get(Calendar.DATE) == 17) {
-			this.splashText = "Happy Birthday Minecraft!";
-		}
-
+		if (calendar.get(Calendar.MONTH) + 1 == 5 && calendar.get(Calendar.DATE) == 17) this.splashText = "Happy Birthday Minecraft!";
 		Language language = Language.getInstance();
 		int buttonY = (this.height / 2) - 12;
-		if (this.field_1229.isDemo()) {
-			this.method_1726(buttonY, 24, language);
-		} else {
-			this.method_1724(buttonY, 24, language);
-		}
-
+		if (this.field_1229.isDemo()) this.method_1726(buttonY, 24, language);
+		else this.method_1724(buttonY, 24, language);
 		this.method_5255(language, buttonY, 24);
-		if (this.field_1229.isApplet) {
-			this.buttons.add(new ButtonWidget(0, this.width / 2 - 100, buttonY + 60, language.translate("menu.options")));
-		} else {
+		if (this.field_1229.isApplet) this.buttons.add(new ButtonWidget(0, this.width / 2 - 100, buttonY + 60, language.translate("menu.options")));
+		else {
 			this.buttons.add(new ButtonWidget(0, this.width / 2 - 100, buttonY + 60, 98, 20, language.translate("menu.options")));
 			this.buttons.add(new ButtonWidget(4, this.width / 2 + 2, buttonY + 60, 98, 20, language.translate("menu.quit")));
 		}
-
 		this.buttons.add(new LanguageButton(5, this.width / 2 - 124, buttonY + 60));
-		synchronized(this.mutex) {
-			this.oldGl1Width = this.textRenderer.getStringWidth(this.oldGl1);
-			this.oldGl2Width = this.textRenderer.getStringWidth(MORE_INFO_MESSAGE);
-			int var6 = Math.max(this.oldGl1Width, this.oldGl2Width);
-			this.oldGlLeft = (this.width - var6) / 2;
-			this.oldGlTop = ((ButtonWidget)this.buttons.get(0)).y - 24;
-			this.oldGlRight = this.oldGlLeft + var6;
-			this.oldGlBottom = this.oldGlTop + 24;
-		}
 		ci.cancel();
 	}
-
 	@Inject(method = "render", at = @At("HEAD"), cancellable = true)
 	public void mclm153$render(int mouseX, int mouseY, float tickDelta, CallbackInfo ci) {
 		this.renderBackground(mouseX, mouseY, tickDelta);
@@ -128,21 +83,18 @@ public abstract class TitleScreenMixin extends Screen {
 		GL11.glPopMatrix();
 		this.drawWithShadow(this.textRenderer, "FiveTwo " + Data.version.getFriendlyString(), 2, this.height - 22, 16777215);
 		this.drawWithShadow(this.textRenderer, "Minecraft 1.5.2" + (this.field_1229.isDemo() ? " Demo" : ""), 2, this.height - 10, 16777215);
-		String copyright = "Copyright Mojang AB. Not an official Minecraft product.";
-		String not_approved = "Not approved by or associated with Mojang Studios or Microsoft.";
-		this.drawWithShadow(this.textRenderer, copyright, this.width - this.textRenderer.getStringWidth(copyright) - 2, this.height - 22, 16777215);
-		this.drawWithShadow(this.textRenderer, not_approved, this.width - this.textRenderer.getStringWidth(not_approved) - 2, this.height - 10, 16777215);
-		if (this.oldGl1 != null && this.oldGl1.length() > 0) {
-			fill(this.oldGlLeft - 2, this.oldGlTop - 2, this.oldGlRight + 2, this.oldGlBottom - 1, 1428160512);
-			this.drawWithShadow(this.textRenderer, this.oldGl1, this.oldGlLeft, this.oldGlTop, 16777215);
-			this.drawWithShadow(this.textRenderer, MORE_INFO_MESSAGE, (this.width - this.oldGl2Width) / 2, ((ButtonWidget)this.buttons.get(0)).y - 12, 16777215);
-		}
-
+		String copyright = "Copyright Mojang AB. Do not distribute!";
+		this.drawWithShadow(this.textRenderer, copyright, this.width - this.textRenderer.getStringWidth(copyright) - 2, this.height - 10, 16777215);
 		super.render(mouseX, mouseY, tickDelta);
 		ci.cancel();
 	}
 	@Inject(method = "method_5260", at = @At("HEAD"), cancellable = true)
 	public void mclm153$disableRealms(Language language, int i, int j, CallbackInfo ci) {
+		ci.cancel();
+	}
+	@Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
+	public void mclm153$disableGLWarningOverlay(int mouseX, int mouseY, int button, CallbackInfo ci) {
+		super.mouseClicked(mouseX, mouseY, button);
 		ci.cancel();
 	}
 }
