@@ -5,7 +5,7 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.mclmfivetwo;
+package com.mclegoman.mclmfivetwo.common;
 
 import net.fabricmc.api.ModInitializer;
 

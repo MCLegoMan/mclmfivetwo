@@ -20,7 +20,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.mclegoman.mclmfivetwo.FiveTwo"
+      "com.mclegoman.mclmfivetwo.common.FiveTwo"
     ]
   },
   "mixins": [

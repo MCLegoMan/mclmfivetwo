@@ -7,6 +7,7 @@
 
 package com.mclegoman.mclmfivetwo.mixin.client;
 
+import com.mclegoman.mclmfivetwo.common.data.Data;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
@@ -125,16 +126,12 @@ public abstract class TitleScreenMixin extends Screen {
 		GL11.glScalef(var8, var8, var8);
 		this.drawCenteredString(this.textRenderer, this.splashText, 0, -8, 16776960);
 		GL11.glPopMatrix();
-		String var9 = "FiveTwo 1.0";
-		if (this.field_1229.isDemo()) {
-			var9 = var9 + " (Demo)";
-		}
-
-		this.drawWithShadow(this.textRenderer, var9, 2, this.height - 10, 16777215);
+		this.drawWithShadow(this.textRenderer, "FiveTwo " + Data.version.getFriendlyString(), 2, this.height - 22, 16777215);
+		this.drawWithShadow(this.textRenderer, "Minecraft 1.5.2" + (this.field_1229.isDemo() ? " Demo" : ""), 2, this.height - 10, 16777215);
 		String copyright = "Copyright Mojang AB. Not an official Minecraft product.";
-		String notapproved = "Not approved by or associated with Mojang Studios or Microsoft.";
+		String not_approved = "Not approved by or associated with Mojang Studios or Microsoft.";
 		this.drawWithShadow(this.textRenderer, copyright, this.width - this.textRenderer.getStringWidth(copyright) - 2, this.height - 22, 16777215);
-		this.drawWithShadow(this.textRenderer, notapproved, this.width - this.textRenderer.getStringWidth(notapproved) - 2, this.height - 10, 16777215);
+		this.drawWithShadow(this.textRenderer, not_approved, this.width - this.textRenderer.getStringWidth(not_approved) - 2, this.height - 10, 16777215);
 		if (this.oldGl1 != null && this.oldGl1.length() > 0) {
 			fill(this.oldGlLeft - 2, this.oldGlTop - 2, this.oldGlRight + 2, this.oldGlBottom - 1, 1428160512);
 			this.drawWithShadow(this.textRenderer, this.oldGl1, this.oldGlLeft, this.oldGlTop, 16777215);
