@@ -703,7 +703,7 @@ item.fireworksCharge.type=Unknown Shape
 item.netherbrick.name=Nether Brick
 item.netherquartz.name=Nether Quartz
 
-item.mclmfivetwo_green_apple.name=Green Apple
+item.mclmfivetwo_greenApple.name=Green Apple
 
 container.inventory=Inventory
 container.hopper=Item Hopper
